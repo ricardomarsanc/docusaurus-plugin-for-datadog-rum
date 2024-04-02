@@ -59,10 +59,10 @@ DD_RUM.onReady(function() {
   DD_RUM.init({
     clientToken: '${pluginOptions.clientToken}',
     applicationId: '${pluginOptions.applicationId}',
-    site: 'datadoghq.com',
+    site: '${pluginOptions.site ?? "datadoghq.com"}',
     service: '${pluginOptions.service ?? "docusaurus"}',
     env: '${pluginOptions.env ?? process.env.NODE_ENV}',
-    // Specify a version number to identify the deployed version of your application in Datadog 
+    // Specify a version number to identify the deployed version of your application in Datadog
     // version: '1.0.0',
     sampleRate: 100,
     trackInteractions: true,
@@ -86,5 +86,10 @@ DD_RUM.onReady(function() {
   test("injectHtmlTags injects the environment name correctly", () => {
     process.env.NODE_ENV = "production";
     runHappyTest({ env: "dev" });
+  });
+
+  test("injectHtmlTags injects the site name correctly", () => {
+    process.env.NODE_ENV = "production";
+    runHappyTest({ site: "datadoghq.eu" });
   });
 });
